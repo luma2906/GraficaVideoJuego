@@ -13,6 +13,7 @@ def main():
 	pygame.display.set_caption("PUBLO DE KIBRA")	
 	fondito=fondo()
 	sprites=fondito.cargarSprites("final3.png")	
+	fondito.cargarMatriz()
 	pantalla.blit(sprites[11],(30,10))
 	pygame.display.flip()
 	for imagen in sprites:
