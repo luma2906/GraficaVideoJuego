@@ -3,9 +3,11 @@ from pygame.locals import *
 import sys
 import fondo
 from fondo import *
+import Jugador
+from Jugador import *
 ALTO= 600   #Alto de la pantalla
 ANCHO= 1000 #Ancho de la pantalla
-V=30 #VELOCIDAD CON LA QUE SE VA MOVER EN EL MAPA
+V=1 #VELOCIDAD CON LA QUE SE VA MOVER EN EL MAPA
 
 
 def main():
@@ -25,23 +27,33 @@ def main():
 	fondito.DrawPantalla(buffe,sprites)
 	pantalla.blit(buffe.subsurface(X_Screen,Y_Screen,ANCHO,ALTO),(0,0))
 	pygame.display.flip()
+	#creo un objeto jugador
+	jugadorP=Jugador()
+
+	jug=jugadorP.cargarSprites();
+	jugadorP.image = jug[0]
+
 	
 	while True:	
 		tecla = pygame.key.get_pressed()
 		tecla = pygame.key.get_pressed()
 		pantalla.blit(buffe.subsurface(X_Screen,Y_Screen,ANCHO,ALTO),(0,0))
-		pygame.display.flip()	
+		pantalla.blit(jugadorP.image,(jugadorP.x,jugadorP.y))
+		pygame.display.flip()
+			
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				sys.exit()
-			if tecla[K_RIGHT]:				
+			if tecla[K_RIGHT]:
+				jugadorP.moverDerecha(jug)				
 				if X_Screen == 3000:
 					print "fdgdsfh"
 				else:
 					X_Screen = X_Screen+V
 						
 				print "holaaa"
-			if tecla[K_DOWN]:				
+			if tecla[K_DOWN]:
+				jugadorP.moverAbajo(jug)				
 				if Y_Screen == 3000:
 					print "fdgdsfh"
 				else:
@@ -49,16 +61,21 @@ def main():
 						
 				print "holaaa"
 			if tecla[K_UP]:
+				jugadorP.moverArriba(jug)
 				if Y_Screen == 0:
 					print "fdgdsfh"
 				else:
 					Y_Screen = Y_Screen-V
 			if tecla[K_LEFT]:
+				jugadorP.moverIzquierda(jug)
 				if X_Screen == 0:
 					print "fdgdsfh"
 				else:
 					X_Screen = X_Screen-V
-		
+			#obtener la posicion del mouse cuando se da click en la pantalla
+				
+			if event.type== pygame.MOUSEBUTTONDOWN:	
+				print "posicion X e Y "+str(pygame.mouse.get_pos()) 
 	
 
 
